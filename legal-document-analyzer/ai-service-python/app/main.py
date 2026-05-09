@@ -145,14 +145,14 @@ def initialize_models():
         # Summarization pipeline
         nlp_models['summarizer'] = pipeline(
             "summarization",
-            model="facebook/bart-large-cnn",
+            model="sshleifer/distilbart-cnn-12-6",
             device=0 if torch.cuda.is_available() else -1
         )
         
         # Zero-shot classification for clause types
         nlp_models['zero_shot_classifier'] = pipeline(
             "zero-shot-classification",
-            model="facebook/bart-large-mnli",
+            model="valhalla/distilbart-mnli-12-3",
             device=0 if torch.cuda.is_available() else -1
         )
 
