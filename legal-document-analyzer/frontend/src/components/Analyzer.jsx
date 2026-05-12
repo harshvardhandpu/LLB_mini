@@ -124,22 +124,22 @@ function Analyzer({ user, onLogout }) {
       <div className="container">
         <header className="hero">
           <div className="hero-copy">
-            <p className="eyebrow">Indian Contract Intelligence</p>
+            <p className="eyebrow">LexiCore AI: Premium Legal Intelligence</p>
             <h1>Review complex legal documents with a sharper, modern lens.</h1>
-            <p className="subtitle">Welcome, <strong>{user?.username}</strong>! Upload a contract and get structured insights, clause mapping, plain-English summaries, and risk flags designed for faster decision-making.</p>
+            <p className="subtitle">Welcome back, <strong>{user?.username}</strong>. LexiCore is ready to transform your complex contracts into structured, actionable insights.</p>
 
             <div className="hero-actions">
-              <button className="btn btn-primary" onClick={() => document.getElementById('uploadSection').scrollIntoView({behavior: 'smooth'})}>Start Analysis</button>
+              <button className="btn btn-primary" onClick={() => document.getElementById('uploadSection').scrollIntoView({behavior: 'smooth'})}>Analyze Document</button>
               <div className="hero-trust">
                 <span className="trust-dot"></span>
-                Built for contracts, agreements, and vendor paperwork
+                Enterprise-grade document intelligence suite
               </div>
             </div>
 
             <div className="hero-highlights">
               <div className="highlight-card">
-                <span className="highlight-label">Focus</span>
-                <strong>Summary + clause review</strong>
+                <span className="highlight-label">Engine</span>
+                <strong>Lexi-Vision v2.4</strong>
               </div>
               <div className="highlight-card">
                 <span className="highlight-label">Output</span>
@@ -219,7 +219,9 @@ function Analyzer({ user, onLogout }) {
                 >
                   <div className="upload-box-glow" aria-hidden="true"></div>
                   <div className="upload-box-content">
-                    <div className="upload-icon">✦</div>
+                    <div className="upload-icon">
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v8"/><path d="m16 6-4-4-4 4"/><rect width="20" height="8" x="2" y="14" rx="2"/><path d="M6 18h.01"/><path d="M10 18h.01"/></svg>
+                    </div>
                     <p className="section-kicker">Secure review workspace</p>
                     <h2>Upload your document for AI-assisted legal analysis</h2>
                     <p className="upload-description">Drag and drop your legal document or click anywhere in this panel to select a file for analysis.</p>
@@ -308,7 +310,53 @@ function Analyzer({ user, onLogout }) {
                 </div>
               </div>
 
-              {/* Add more sections based on results... */}
+              {results.risks && results.risks.length > 0 && (
+                <div className="card risk-card">
+                  <h2>Risk Analysis</h2>
+                  <div className="risks-content">
+                    {results.risks.map((risk, index) => (
+                      <div className="risk-item" key={`risk-${index}`}>
+                        <div>
+                          <span className="risk-type">{formatLabel(risk.type)}</span>
+                          <span className={`risk-severity risk-severity-${risk.severity_level || 'medium'}`}>
+                            {formatLabel(risk.severity_level || 'medium')} Severity
+                          </span>
+                        </div>
+                        <h3>{risk.risk_title}</h3>
+                        <p><strong>Why it's risky:</strong> {risk.why_this_is_risky}</p>
+                        <p><strong>Recommendation:</strong> {risk.recommendation}</p>
+                        <div style={{ background: 'rgba(0,0,0,0.2)', padding: '10px', borderRadius: '6px', fontSize: '0.9rem', fontStyle: 'italic', borderLeft: '3px solid var(--danger)' }}>
+                          "{risk.clause}"
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {results.key_clauses && results.key_clauses.length > 0 && (
+                <div className="card clause-card">
+                  <h2>Key Clauses Detected</h2>
+                  <div className="clauses-content">
+                    {results.key_clauses.map((clause, index) => (
+                      <div className={`clause-item ${clause.is_risky ? 'risky-clause' : ''}`} key={`clause-${index}`}>
+                        <div>
+                          <span className="clause-type">{formatLabel(clause.type)}</span>
+                          {clause.is_risky && (
+                            <span className="risk-severity risk-severity-high" style={{ marginLeft: '10px' }}>Risky</span>
+                          )}
+                        </div>
+                        <p><strong>Section:</strong> {clause.section}</p>
+                        <p style={{ color: 'var(--text-muted)' }}>{clause.explanation}</p>
+                        <div style={{ background: 'rgba(0,0,0,0.2)', padding: '10px', borderRadius: '6px', fontSize: '0.9rem', fontFamily: 'var(--font-mono, monospace)', borderLeft: '3px solid var(--primary-soft)' }}>
+                          "{clause.text}..."
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               <div className="action-buttons">
                 <button className="btn btn-primary" onClick={downloadReport}>Download Report</button>
                 <button className="btn btn-secondary" onClick={resetUI}>Analyze Another</button>
@@ -317,9 +365,9 @@ function Analyzer({ user, onLogout }) {
           )}
         </main>
 
-        <footer className="footer">
-          <p>&copy; 2024 Legal Document Analyzer. For information extraction and analysis only.</p>
-          <p><strong>Note:</strong> This tool supports review workflows and should not replace advice from a qualified legal professional.</p>
+        <footer className="footer" style={{ textAlign: 'center', marginTop: '64px', opacity: 0.6 }}>
+          <p>&copy; 2024 LexiCore AI. Premium Document Intelligence.</p>
+          <p style={{ fontSize: '0.85rem', marginTop: '8px' }}>This tool is for information extraction only and does not constitute professional legal advice.</p>
         </footer>
       </div>
     </div>

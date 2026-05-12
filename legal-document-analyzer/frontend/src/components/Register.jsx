@@ -32,8 +32,9 @@ function Register({ onLogin }) {
       <div className="auth-page">
         <div className="auth-card">
           <div className="auth-header">
-            <h1 className="auth-title">Create an Account</h1>
-            <p className="auth-subtitle">Join to start reviewing legal documents</p>
+            <div style={{ color: 'var(--primary)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '24px', fontSize: '1.2rem' }}>LexiCore AI</div>
+            <h1 className="auth-title">Create Account</h1>
+            <p className="auth-subtitle">Join the elite document intelligence network</p>
           </div>
 
           {error && (

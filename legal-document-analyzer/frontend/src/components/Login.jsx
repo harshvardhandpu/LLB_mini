@@ -32,8 +32,9 @@ function Login({ onLogin }) {
       <div className="auth-page">
         <div className="auth-card">
           <div className="auth-header">
+            <div style={{ color: 'var(--primary)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '24px', fontSize: '1.2rem' }}>LexiCore AI</div>
             <h1 className="auth-title">Welcome Back</h1>
-            <p className="auth-subtitle">Log in to continue your legal analysis</p>
+            <p className="auth-subtitle">Access your premium document intelligence suite</p>
           </div>
 
           {error && (
