@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Analysis Studio - LexiCore AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-background": "#e4e2e4",
+                      "on-secondary": "#263143",
+                      "on-surface-variant": "#c6c6cd",
+                      "secondary-fixed-dim": "#bcc7de",
+                      "surface-container": "#1f1f21",
+                      "primary-container": "#0f172a",
+                      "surface-container-high": "#2a2a2b",
+                      "on-tertiary-container": "#957d5a",
+                      "secondary-container": "#3e495d",
+                      "surface": "#131315",
+                      "surface-container-low": "#1b1b1d",
+                      "inverse-on-surface": "#303032",
+                      "surface-variant": "#353436",
+                      "on-primary-container": "#798098",
+                      "tertiary-fixed": "#fcdeb5",
+                      "surface-bright": "#39393b",
+                      "on-tertiary-fixed-variant": "#574425",
+                      "outline-variant": "#45464d",
+                      "inverse-surface": "#e4e2e4",
+                      "surface-tint": "#bec6e0",
+                      "on-primary-fixed": "#131b2e",
+                      "background": "#131315",
+                      "tertiary-container": "#231500",
+                      "on-secondary-container": "#aeb9d0",
+                      "secondary-fixed": "#d8e3fb",
+                      "on-tertiary": "#3e2d11",
+                      "on-secondary-fixed-variant": "#3c475a",
+                      "on-error-container": "#ffdad6",
+                      "secondary": "#bcc7de",
+                      "inverse-primary": "#565e74",
+                      "primary-fixed": "#dae2fd",
+                      "on-secondary-fixed": "#111c2d",
+                      "on-primary-fixed-variant": "#3f465c",
+                      "primary": "#bec6e0",
+                      "surface-dim": "#131315",
+                      "outline": "#909097",
+                      "on-primary": "#283044",
+                      "error": "#ffb4ab",
+                      "error-container": "#93000a",
+                      "primary-fixed-dim": "#bec6e0",
+                      "tertiary-fixed-dim": "#dec29a",
+                      "surface-container-highest": "#353436",
+                      "surface-container-lowest": "#0e0e10",
+                      "on-surface": "#e4e2e4",
+                      "tertiary": "#dec29a",
+                      "on-tertiary-fixed": "#271901",
+                      "on-error": "#690005"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "12px",
+                      "density-scale": "compact",
+                      "container-padding": "16px",
+                      "component-gap": "8px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "data-tabular": [
+                              "JetBrains Mono"
+                      ],
+                      "body-fixed": [
+                              "JetBrains Mono"
+                      ],
+                      "display-md": [
+                              "Inter"
+                      ],
+                      "body-ui": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "data-tabular": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-fixed": [
+                              "13px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-ui": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            background-color: theme('colors.primary');
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 8px theme('colors.primary');
+        }
+        .ai-shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        .ai-shimmer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border: 1px solid transparent;
+            background: linear-gradient(90deg, transparent, rgba(190, 198, 224, 0.3), transparent) border-box;
+            -webkit-mask:
+                linear-gradient(#fff 0 0) padding-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            z-index: 10;
+            pointer-events: none;
+            border-radius: inherit;
+            animation: shimmer 2s infinite linear;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        /* Custom Scrollbar for dense data areas */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: theme('colors.surface'); 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.outline-variant'); 
+            border-radius: theme('borderRadius.DEFAULT');
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: theme('colors.outline'); 
+        }
+      </style>
+</head>
+<body class="bg-background text-on-background font-body-ui text-body-ui h-screen overflow-hidden flex selection:bg-primary/30">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-screen w-64 border-r border-outline-variant/20 bg-surface-container/60 backdrop-blur-xl flex flex-col py-gutter px-4 z-50">
+<div class="mb-8 flex flex-col gap-2">
+<h1 class="font-display-md text-display-md font-bold tracking-tight text-primary">LexiCore AI</h1>
+<span class="text-on-surface-variant font-body-ui text-body-ui">Legal Intelligence</span>
+</div>
+<button class="w-full bg-primary text-on-primary py-2 px-4 rounded font-label-caps text-label-caps mb-8 hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">add</span>
+            New Analysis
+        </button>
+<ul class="flex flex-col gap-unit flex-grow">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant font-medium hover:bg-white/5 hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                    Command Center
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-primary font-bold border-r-2 border-primary bg-primary/5" href="#">
+<span class="material-symbols-outlined">analytics</span>
+                    Analysis Studio
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant font-medium hover:bg-white/5 hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+                    Vault
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant font-medium hover:bg-white/5 hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">psychology</span>
+                    Intelligence Hub
+                </a>
+</li>
+</ul>
+<div class="mt-auto border-t border-outline-variant/20 pt-4 flex flex-col gap-unit">
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant font-medium hover:bg-white/5 hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant font-medium hover:bg-white/5 hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">help</span>
+                Support
+            </a>
+</div>
+</nav>
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 border-b border-outline-variant/20 bg-surface/40 backdrop-blur-md flex items-center justify-between px-gutter z-40">
+<div class="flex items-center gap-6">
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant/30 rounded pl-8 pr-3 py-1.5 text-body-ui font-body-ui text-on-surface focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all placeholder:text-on-surface-variant/50" placeholder="Search precedents, entities..." type="text"/>
+</div>
+<nav class="hidden lg:flex gap-6">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary hover:bg-white/5 px-2 py-1 rounded transition-colors" href="#">Repository</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary hover:bg-white/5 px-2 py-1 rounded transition-colors" href="#">Precedents</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary hover:bg-white/5 px-2 py-1 rounded transition-colors" href="#">Risk Atlas</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">history_edu</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden border border-outline-variant/30">
+<img alt="Senior Counsel Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a seasoned male lawyer in a sharp dark suit. The lighting is dramatic yet corporate, highlighting a serious, focused expression. The background is a slightly blurred, modern law office setting with deep blues and subtle warm lighting, conveying authority and legal expertise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYKn756C0uhsSENWXQ3t7-o8Q3cQOdNieFiNpmVimYLjdUD8a4SO6WNLdyDgj7aTpvZdw8alpimd1-O1wIc_XUpG0LY09Vnkp_PTVycEjoFxT7VEgnwnapC19LKTmYLxZUSpgMsJL7xC3AruIh5lFlG35KPp0aJLh62Ok7fnq1w3UoIN6Sgi1JU_u8fGnJPb0fBVx-WGVP1PufdNSx4S0oh4urUaMhZorp1KaCznGfvC5ePuOcp5fRtcQtVDnvbuNjoemNkliHAAU"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area: Analysis Studio Dual Pane -->
+<main class="ml-64 mt-16 flex w-full h-[calc(100vh-4rem)] p-gutter gap-gutter bg-background">
+<!-- Left Pane: Document Viewer (60%) -->
+<section class="w-[60%] flex flex-col border border-outline-variant/20 rounded bg-surface-container-low/50 backdrop-blur-sm overflow-hidden">
+<!-- Viewer Toolbar -->
+<div class="h-12 border-b border-outline-variant/20 flex items-center justify-between px-4 bg-surface-container/80">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">description</span>
+<span class="font-data-tabular text-data-tabular text-on-surface">MSA_Vanguard_Corp_v4.pdf</span>
+<span class="px-2 py-0.5 rounded bg-surface-variant text-on-surface-variant font-label-caps text-[10px]">PAGES 1-45</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-1 text-on-surface-variant hover:text-primary rounded hover:bg-white/5"><span class="material-symbols-outlined text-[18px]">zoom_out</span></button>
+<span class="font-data-tabular text-data-tabular text-on-surface-variant">100%</span>
+<button class="p-1 text-on-surface-variant hover:text-primary rounded hover:bg-white/5"><span class="material-symbols-outlined text-[18px]">zoom_in</span></button>
+<div class="w-px h-4 bg-outline-variant/30 mx-1"></div>
+<button class="p-1 text-on-surface-variant hover:text-primary rounded hover:bg-white/5"><span class="material-symbols-outlined text-[18px]">download</span></button>
+</div>
+</div>
+<!-- Document Content -->
+<div class="flex-grow overflow-y-auto p-8 bg-surface/30">
+<article class="max-w-3xl mx-auto bg-surface-container p-12 shadow-sm rounded border border-outline-variant/10 font-body-ui text-on-background/90 leading-relaxed text-[15px]">
+<h2 class="font-display-md text-display-md text-center font-bold mb-8 text-on-surface tracking-tight">MASTER SERVICES AGREEMENT</h2>
+<p class="mb-6 text-justify">This Master Services Agreement ("Agreement") is entered into as of October 15, 2023 ("Effective Date"), by and between Vanguard Technologies Inc. ("Client"), a Delaware corporation, and Nexus Solutions LLC ("Provider"), a California limited liability company.</p>
+<h3 class="font-bold mt-8 mb-4 text-on-surface">1. SERVICES AND DELIVERABLES</h3>
+<p class="mb-6 text-justify">Provider agrees to perform the services ("Services") and provide the deliverables ("Deliverables") set forth in one or more Statements of Work ("SOW") executed by both parties. Each SOW shall be governed by the terms and conditions of this Agreement.</p>
+<h3 class="font-bold mt-8 mb-4 text-on-surface">2. COMPENSATION AND PAYMENT</h3>
+<p class="mb-4 text-justify">Client shall pay Provider the fees set forth in the applicable SOW. Unless otherwise specified in an SOW, Provider shall invoice Client monthly for Services performed.</p>
+<!-- AI Highlighted Risk Section -->
+<div class="relative my-6 p-4 border-l-2 border-error-container bg-error-container/5 rounded-r">
+<span class="absolute -left-2 -top-2 w-4 h-4 bg-error text-error-container rounded-full flex items-center justify-center text-[10px] font-bold shadow-sm">!</span>
+<p class="font-body-fixed text-body-fixed text-error-container mb-2">Clause 2.2: Late Payments</p>
+<p class="text-justify font-data-tabular text-data-tabular">
+                            "In the event Client fails to remit payment within fifteen (15) days of the invoice date, Client agrees to pay a late fee equal to <span class="bg-error/20 text-error px-1 rounded">five percent (5%) per month</span> on the outstanding balance, compounded daily."
+                        </p>
+</div>
+<h3 class="font-bold mt-8 mb-4 text-on-surface">3. INTELLECTUAL PROPERTY</h3>
+<p class="mb-4 text-justify">Upon full payment of all fees due under an SOW, Provider grants Client a non-exclusive, non-transferable license to use the Deliverables for Client's internal business purposes.</p>
+<!-- AI Highlighted Precedent Section -->
+<div class="relative my-6 p-4 border-l-2 border-tertiary bg-tertiary/5 rounded-r">
+<div class="absolute -left-[3px] top-4 pulse-dot bg-tertiary shadow-[0_0_8px_theme('colors.tertiary')]"></div>
+<p class="text-justify font-data-tabular text-data-tabular text-tertiary-fixed-dim">
+                            "Provider retains all right, title, and interest in and to any pre-existing materials, methodologies, or tools used in the creation of the Deliverables (the 'Background IP')."
+                        </p>
+</div>
+<h3 class="font-bold mt-8 mb-4 text-on-surface">4. CONFIDENTIALITY</h3>
+<p class="mb-6 text-justify">Each party agrees to maintain in strict confidence all non-public information disclosed by the other party ("Confidential Information"). This obligation shall survive the termination of this Agreement for a period of five (5) years.</p>
+<div class="h-32"></div> <!-- Scroll spacer -->
+</article>
+</div>
+</section>
+<!-- Right Pane: AI Insights Sidebar (40%) -->
+<section class="w-[40%] flex flex-col gap-component-gap h-full">
+<!-- Top: Executive Summary -->
+<div class="bg-surface-container/60 backdrop-blur-md border border-outline-variant/20 rounded p-4 shadow-sm flex-shrink-0">
+<div class="flex items-center justify-between mb-4 border-b border-outline-variant/20 pb-2">
+<h3 class="font-label-caps text-label-caps text-primary flex items-center gap-2">
+<div class="pulse-dot"></div>
+                        AI Executive Summary
+                    </h3>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px] cursor-pointer hover:text-on-surface">more_horiz</span>
+</div>
+<div class="space-y-3 font-body-fixed text-body-fixed text-on-surface-variant">
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-error text-[16px] shrink-0 mt-0.5">warning</span>
+<p><strong>High Risk:</strong> Unusually aggressive late payment penalty (5% monthly/compounded daily) detected in Clause 2.2.</p>
+</div>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-tertiary text-[16px] shrink-0 mt-0.5">info</span>
+<p><strong>IP Deviation:</strong> IP clause (Sec 3) grants only a license, contrary to standard Vanguard 'Work for Hire' templates.</p>
+</div>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-primary text-[16px] shrink-0 mt-0.5">verified</span>
+<p><strong>Standard Alignment:</strong> Confidentiality terms (Sec 4) align with standard 5-year survival period.</p>
+</div>
+</div>
+</div>
+<!-- Middle: Identified Entities -->
+<div class="bg-surface-container/40 border border-outline-variant/20 rounded p-4 flex-shrink-0 flex flex-col min-h-[150px]">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-3 border-b border-outline-variant/20 pb-2">Identified Entities</h3>
+<div class="flex flex-col gap-3 overflow-y-auto">
+<!-- Category: Parties -->
+<div>
+<span class="text-[10px] text-on-surface-variant/70 uppercase tracking-widest mb-1 block">Parties</span>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-surface-variant text-on-surface font-data-tabular text-data-tabular rounded border border-outline-variant/30 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-primary">corporate_fare</span>
+                                Vanguard Technologies Inc. (Client)
+                            </span>
+<span class="px-2 py-1 bg-surface-variant text-on-surface font-data-tabular text-data-tabular rounded border border-outline-variant/30 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-primary">domain</span>
+                                Nexus Solutions LLC (Provider)
+                            </span>
+</div>
+</div>
+<!-- Category: Key Dates -->
+<div>
+<span class="text-[10px] text-on-surface-variant/70 uppercase tracking-widest mb-1 block">Key Dates</span>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-secondary-container/30 text-secondary font-data-tabular text-data-tabular rounded border border-secondary/20">
+                                Oct 15, 2023 (Effective Date)
+                            </span>
+<span class="px-2 py-1 bg-secondary-container/30 text-secondary font-data-tabular text-data-tabular rounded border border-secondary/20">
+                                15 Days (Payment Term)
+                            </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom: AI Legal Assistant Chat -->
+<div class="bg-surface-container/60 border border-outline-variant/20 rounded flex-grow flex flex-col overflow-hidden ai-shimmer relative">
+<!-- Chat Header -->
+<div class="bg-surface-container-high px-4 py-2 border-b border-outline-variant/20 flex justify-between items-center relative z-20">
+<span class="font-label-caps text-label-caps text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">forum</span>
+                        LexiCore Assistant
+                    </span>
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-[16px]">open_in_full</span></button>
+</div>
+<!-- Chat History -->
+<div class="flex-grow p-4 overflow-y-auto flex flex-col gap-4 relative z-20 bg-surface/20">
+<!-- User Message -->
+<div class="self-end max-w-[85%] bg-surface-variant rounded-l rounded-tr px-3 py-2 text-on-surface font-body-ui text-[13px]">
+                        Compare the Late Payment penalty in this document to standard California precedents.
+                    </div>
+<!-- AI Response -->
+<div class="self-start max-w-[90%] bg-primary-container/20 border border-primary/20 rounded-r rounded-tl px-3 py-2 text-on-surface font-body-ui text-[13px]">
+<div class="flex items-center gap-2 mb-2">
+<div class="pulse-dot"></div>
+<span class="font-label-caps text-[10px] text-primary">ANALYSIS COMPLETE</span>
+</div>
+                        The stipulated penalty of <strong>5% per month (compounded daily)</strong> in Clause 2.2 is exceptionally high. 
+                        <br/><br/>
+                        Standard commercial precedents under California law typically cap late payment penalties at <strong>1% to 1.5% per month</strong> (12% to 18% annualized) to avoid being deemed an unenforceable penalty or running afoul of usury laws, though B2B transactions often have higher thresholds.
+                        <div class="mt-2 p-2 bg-surface-container border border-outline-variant/30 rounded font-data-tabular text-[11px] text-on-surface-variant">
+                            Suggestion: Draft redline to cap at 1.5% monthly, simple interest.
+                        </div>
+</div>
+<!-- AI Thinking State -->
+<div class="self-start max-w-[90%] px-3 py-2 text-on-surface-variant font-body-ui text-[13px] flex items-center gap-2 opacity-70">
+<span class="material-symbols-outlined text-[16px] animate-spin">sync</span>
+                        Analyzing cross-reference obligations...
+                    </div>
+</div>
+<!-- Chat Input -->
+<div class="p-3 bg-surface-container-high border-t border-outline-variant/20 relative z-20">
+<div class="relative flex items-center">
+<input class="w-full bg-surface border border-outline-variant/40 rounded pl-3 pr-10 py-2 text-[13px] font-body-ui text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 placeholder:text-on-surface-variant/40 transition-colors" placeholder="Ask LexiCore about this document..." type="text"/>
+<button class="absolute right-2 text-primary hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-[20px]">send</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body></html>

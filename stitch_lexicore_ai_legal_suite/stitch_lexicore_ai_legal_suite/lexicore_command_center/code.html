@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Command Center - LexiCore AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#e4e2e4",
+                        "on-secondary": "#263143",
+                        "on-surface-variant": "#c6c6cd",
+                        "secondary-fixed-dim": "#bcc7de",
+                        "surface-container": "#1f1f21",
+                        "primary-container": "#0f172a",
+                        "surface-container-high": "#2a2a2b",
+                        "on-tertiary-container": "#957d5a",
+                        "secondary-container": "#3e495d",
+                        "surface": "#131315",
+                        "surface-container-low": "#1b1b1d",
+                        "inverse-on-surface": "#303032",
+                        "surface-variant": "#353436",
+                        "on-primary-container": "#798098",
+                        "tertiary-fixed": "#fcdeb5",
+                        "surface-bright": "#39393b",
+                        "on-tertiary-fixed-variant": "#574425",
+                        "outline-variant": "#45464d",
+                        "inverse-surface": "#e4e2e4",
+                        "surface-tint": "#bec6e0",
+                        "on-primary-fixed": "#131b2e",
+                        "background": "#131315",
+                        "tertiary-container": "#231500",
+                        "on-secondary-container": "#aeb9d0",
+                        "secondary-fixed": "#d8e3fb",
+                        "on-tertiary": "#3e2d11",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "on-error-container": "#ffdad6",
+                        "secondary": "#bcc7de",
+                        "inverse-primary": "#565e74",
+                        "primary-fixed": "#dae2fd",
+                        "on-secondary-fixed": "#111c2d",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "primary": "#bec6e0",
+                        "surface-dim": "#131315",
+                        "outline": "#909097",
+                        "on-primary": "#283044",
+                        "error": "#ffb4ab",
+                        "error-container": "#93000a",
+                        "primary-fixed-dim": "#bec6e0",
+                        "tertiary-fixed-dim": "#dec29a",
+                        "surface-container-highest": "#353436",
+                        "surface-container-lowest": "#0e0e10",
+                        "on-surface": "#e4e2e4",
+                        "tertiary": "#dec29a",
+                        "on-tertiary-fixed": "#271901",
+                        "on-error": "#690005"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "12px",
+                        "density-scale": "compact",
+                        "container-padding": "16px",
+                        "component-gap": "8px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "data-tabular": ["JetBrains Mono"],
+                        "body-fixed": ["JetBrains Mono"],
+                        "display-md": ["Inter"],
+                        "body-ui": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "data-tabular": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-fixed": ["13px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "display-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-ui": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background-color: rgba(31, 31, 33, 0.6);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(69, 70, 77, 0.2);
+        }
+        .ai-pulse {
+            box-shadow: 0 0 8px rgba(190, 198, 224, 0.6);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(190, 198, 224, 0.7); }
+            70% { box-shadow: 0 0 0 6px rgba(190, 198, 224, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(190, 198, 224, 0); }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: rgba(198, 198, 205, 0.2);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-ui min-h-screen overflow-x-hidden selection:bg-primary/30">
+<nav class="fixed left-0 top-0 h-screen w-64 border-r border-outline-variant/20 bg-surface-container/60 backdrop-blur-xl shadow-none flex flex-col py-gutter px-4 z-50">
+<div class="mb-8 mt-2 px-2">
+<h1 class="font-display-md text-display-md font-bold tracking-tight text-primary">LexiCore AI</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">Legal Intelligence</p>
+</div>
+<button class="mb-6 w-full py-2 bg-primary text-on-primary font-body-ui rounded font-medium hover:bg-primary/90 active:scale-95 transition-all duration-150 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span> New Analysis
+        </button>
+<div class="flex flex-col gap-1 flex-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded text-primary font-bold border-r-2 border-primary bg-primary/5 active:scale-95 transition-all duration-150 font-body-ui text-body-ui" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">dashboard</span> Command Center
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant font-medium hover:bg-white/5 hover:text-on-surface transition-colors duration-200 active:scale-95 transition-all duration-150 font-body-ui text-body-ui" href="#">
+<span class="material-symbols-outlined text-[20px]">analytics</span> Analysis Studio
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant font-medium hover:bg-white/5 hover:text-on-surface transition-colors duration-200 active:scale-95 transition-all duration-150 font-body-ui text-body-ui" href="#">
+<span class="material-symbols-outlined text-[20px]">account_balance_wallet</span> Vault
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant font-medium hover:bg-white/5 hover:text-on-surface transition-colors duration-200 active:scale-95 transition-all duration-150 font-body-ui text-body-ui" href="#">
+<span class="material-symbols-outlined text-[20px]">psychology</span> Intelligence Hub
+            </a>
+</div>
+<div class="mt-auto border-t border-outline-variant/20 pt-4 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant font-medium hover:bg-white/5 hover:text-on-surface transition-colors duration-200 active:scale-95 transition-all duration-150 font-body-ui text-body-ui" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span> Settings
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant font-medium hover:bg-white/5 hover:text-on-surface transition-colors duration-200 active:scale-95 transition-all duration-150 font-body-ui text-body-ui" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span> Support
+            </a>
+</div>
+</nav>
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 border-b border-outline-variant/20 bg-surface/40 backdrop-blur-md shadow-sm flex items-center justify-between px-gutter z-40">
+<div class="flex items-center gap-6 flex-1">
+<div class="relative w-72">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full bg-surface-container border border-outline-variant/30 rounded pl-9 pr-3 py-1.5 font-body-fixed text-body-fixed text-on-surface placeholder:text-on-surface-variant/50 focus:ring-1 focus:ring-primary/30 transition-all outline-none" placeholder="Query repositories..." type="text"/>
+</div>
+<nav class="hidden lg:flex items-center gap-4">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary hover:bg-white/5 px-3 py-1.5 rounded transition-colors" href="#">Repository</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary hover:bg-white/5 px-3 py-1.5 rounded transition-colors" href="#">Precedents</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary hover:bg-white/5 px-3 py-1.5 rounded transition-colors" href="#">Risk Atlas</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center relative">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-0 right-0 w-1.5 h-1.5 bg-primary rounded-full"></span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">history_edu</span>
+</button>
+<div class="h-6 w-px bg-outline-variant/30 mx-1"></div>
+<div class="w-8 h-8 rounded bg-surface-container-high border border-outline-variant/50 overflow-hidden flex-shrink-0 cursor-pointer">
+<img alt="Senior Counsel Profile" class="w-full h-full object-cover" data-alt="A highly detailed, professional headshot of a senior legal counsel in a dimly lit, contemporary corporate office. The lighting is cinematic and moody, highlighting sharp features and a sophisticated demeanor. The color palette consists of deep blues, charcoal greys, and crisp white highlights, reflecting a high-stakes, data-driven environment. The overall aesthetic is authoritative, discreet, and modern." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAf8P2WZ_IaRMOTWSanHHhsEy8KoeYeHFpD6W7TSqGHuegrOSP0mTfsTDZCDqRJrztn3LZYTMAOpW5VUQIbks0-FhbLIim9CW5VFyRbpChvjkNuSAK8a596Y7tFczjArJqB1RBKX7Ux5E7GrmteeijEHo8hkwrpCQ7nQNaNVa_JrReRDmSyRv0q20IoODNPW6d6Vn5ws-lbvIcdSrJfUwLPZQgJn0J7N6wIsK9dYU1NP-EEnFax7Lgzov0ikienqkXOy8XryZbYfrw"/>
+</div>
+</div>
+</header>
+<main class="ml-64 pt-16 p-container-padding min-h-screen flex flex-col gap-gutter">
+<div class="grid grid-cols-12 gap-gutter h-[400px]">
+<section class="col-span-3 glass-panel rounded-lg flex flex-col overflow-hidden">
+<div class="p-4 border-b border-outline-variant/10 flex items-center justify-between bg-surface-container-low/50">
+<h2 class="font-label-caps text-label-caps text-primary">Active Ingestions</h2>
+<span class="font-data-tabular text-data-tabular text-on-surface-variant">4 Tasks</span>
+</div>
+<div class="p-4 flex-1 flex flex-col gap-4 overflow-y-auto custom-scrollbar">
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between items-end">
+<span class="font-body-fixed text-body-fixed text-on-surface truncate pr-2">Project_Alpha_M&amp;A_v4.pdf</span>
+<span class="font-data-tabular text-data-tabular text-tertiary">82%</span>
+</div>
+<div class="h-1 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-[82%] relative">
+<div class="absolute inset-0 bg-white/20 w-1/2 -skew-x-12 translate-x-full animate-[shimmer_2s_infinite]"></div>
+</div>
+</div>
+<div class="font-data-tabular text-[10px] text-on-surface-variant">Extracting Entities...</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between items-end">
+<span class="font-body-fixed text-body-fixed text-on-surface truncate pr-2">Q3_Compliance_Audit.docx</span>
+<span class="font-data-tabular text-data-tabular text-primary">45%</span>
+</div>
+<div class="h-1 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[45%]"></div>
+</div>
+<div class="font-data-tabular text-[10px] text-on-surface-variant">Cross-referencing Precedents...</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between items-end">
+<span class="font-body-fixed text-body-fixed text-on-surface truncate pr-2">Global_Terms_2024.pdf</span>
+<span class="font-data-tabular text-data-tabular text-primary">12%</span>
+</div>
+<div class="h-1 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[12%]"></div>
+</div>
+<div class="font-data-tabular text-[10px] text-on-surface-variant">OCR Processing...</div>
+</div>
+<div class="flex flex-col gap-1.5 opacity-50">
+<div class="flex justify-between items-end">
+<span class="font-body-fixed text-body-fixed text-on-surface truncate pr-2">Historical_Litigation.zip</span>
+<span class="font-data-tabular text-data-tabular text-on-surface-variant">Queued</span>
+</div>
+<div class="h-1 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-outline-variant w-0"></div>
+</div>
+<div class="font-data-tabular text-[10px] text-on-surface-variant">Waiting...</div>
+</div>
+</div>
+</section>
+<section class="col-span-5 glass-panel rounded-lg flex flex-col overflow-hidden relative">
+<div class="p-4 border-b border-outline-variant/10 flex items-center justify-between bg-surface-container-low/50">
+<h2 class="font-label-caps text-label-caps text-primary">Risk Atlas Overview</h2>
+<div class="flex gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-error self-center"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary self-center"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary self-center"></span>
+</div>
+</div>
+<div class="p-6 flex-1 flex flex-col justify-between">
+<div class="grid grid-cols-3 gap-4 mb-4">
+<div class="bg-surface-container-high/30 border border-outline-variant/20 rounded p-3 text-center">
+<div class="font-display-md text-display-md text-error mb-1">12</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">High Risk</div>
+</div>
+<div class="bg-surface-container-high/30 border border-outline-variant/20 rounded p-3 text-center">
+<div class="font-display-md text-display-md text-tertiary mb-1">48</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">Med Risk</div>
+</div>
+<div class="bg-surface-container-high/30 border border-outline-variant/20 rounded p-3 text-center">
+<div class="font-display-md text-display-md text-primary mb-1">342</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">Low Risk</div>
+</div>
+</div>
+<div class="flex-1 mt-4 relative border-l border-b border-outline-variant/20">
+<div class="absolute bottom-0 left-0 w-full h-[80%] flex items-end justify-between px-2 opacity-80">
+<div class="w-[8%] bg-primary/20 h-[30%] rounded-t border-t border-primary/50"></div>
+<div class="w-[8%] bg-primary/20 h-[45%] rounded-t border-t border-primary/50"></div>
+<div class="w-[8%] bg-primary/20 h-[35%] rounded-t border-t border-primary/50"></div>
+<div class="w-[8%] bg-tertiary/20 h-[60%] rounded-t border-t border-tertiary/50"></div>
+<div class="w-[8%] bg-tertiary/20 h-[50%] rounded-t border-t border-tertiary/50"></div>
+<div class="w-[8%] bg-error/20 h-[85%] rounded-t border-t border-error/50 relative">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 font-data-tabular text-[10px] text-error bg-error/10 px-1 rounded border border-error/30">Peak</div>
+</div>
+<div class="w-[8%] bg-tertiary/20 h-[70%] rounded-t border-t border-tertiary/50"></div>
+<div class="w-[8%] bg-primary/20 h-[40%] rounded-t border-t border-primary/50"></div>
+</div>
+</div>
+</div>
+</section>
+<section class="col-span-4 glass-panel rounded-lg flex flex-col overflow-hidden">
+<div class="p-4 border-b border-outline-variant/10 flex items-center justify-between bg-surface-container-low/50">
+<h2 class="font-label-caps text-label-caps text-primary">AI Intelligence Feed</h2>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">rss_feed</span>
+</div>
+<div class="p-4 flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-3">
+<div class="bg-surface-container-high/40 border border-error/20 rounded p-3 hover:bg-surface-container-high/60 transition-colors cursor-pointer">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-2 h-2 rounded-full bg-error ai-pulse"></div>
+<span class="font-label-caps text-label-caps text-error">Critical Insight</span>
+<span class="font-data-tabular text-[10px] text-on-surface-variant ml-auto">Just Now</span>
+</div>
+<p class="font-body-ui text-body-ui text-on-surface mb-2 leading-relaxed">Critical non-compliance detected in <span class="font-body-fixed text-primary">Project Alpha contract</span>. Section 4.2 violates new GDPR stipulations.</p>
+<div class="flex gap-2">
+<span class="font-data-tabular text-[10px] bg-error/10 text-error px-1.5 py-0.5 rounded border border-error/20">Compliance</span>
+<span class="font-data-tabular text-[10px] bg-surface-variant text-on-surface-variant px-1.5 py-0.5 rounded">Action Required</span>
+</div>
+</div>
+<div class="bg-surface-container-high/40 border border-tertiary/20 rounded p-3 hover:bg-surface-container-high/60 transition-colors cursor-pointer">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div>
+<span class="font-label-caps text-label-caps text-tertiary">Precedent Match</span>
+<span class="font-data-tabular text-[10px] text-on-surface-variant ml-auto">12m ago</span>
+</div>
+<p class="font-body-ui text-body-ui text-on-surface mb-2 leading-relaxed">Found 85% similarity with <span class="font-body-fixed text-primary">Doe v. TechCorp (2021)</span> regarding liability limitations.</p>
+<div class="flex gap-2">
+<span class="font-data-tabular text-[10px] bg-surface-variant text-on-surface-variant px-1.5 py-0.5 rounded">Litigation</span>
+</div>
+</div>
+<div class="bg-surface-container-high/40 border border-outline-variant/20 rounded p-3 hover:bg-surface-container-high/60 transition-colors cursor-pointer">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-2 h-2 rounded-full bg-primary opacity-50"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Summary Generated</span>
+<span class="font-data-tabular text-[10px] text-on-surface-variant ml-auto">1h ago</span>
+</div>
+<p class="font-body-ui text-body-ui text-on-surface mb-2 leading-relaxed">Executive summary ready for Q3 Compliance Audit document set.</p>
+<div class="flex gap-2">
+<span class="font-data-tabular text-[10px] bg-surface-variant text-on-surface-variant px-1.5 py-0.5 rounded">Auto-Generated</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<section class="glass-panel rounded-lg flex flex-col flex-1 min-h-[300px]">
+<div class="p-4 border-b border-outline-variant/10 flex items-center justify-between bg-surface-container-low/50">
+<h2 class="font-label-caps text-label-caps text-primary">Recent Vault Activity</h2>
+<button class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1">
+                    View Full Vault <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr>
+<th class="font-label-caps text-label-caps text-on-surface-variant py-3 px-4 border-b border-outline-variant/20 bg-surface-container/30">Document ID</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant py-3 px-4 border-b border-outline-variant/20 bg-surface-container/30">Title</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant py-3 px-4 border-b border-outline-variant/20 bg-surface-container/30">Parties</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant py-3 px-4 border-b border-outline-variant/20 bg-surface-container/30">Jurisdiction</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant py-3 px-4 border-b border-outline-variant/20 bg-surface-container/30 text-right">Date Added</th>
+</tr>
+</thead>
+<tbody class="font-data-tabular text-data-tabular">
+<tr class="hover:bg-white/5 transition-colors border-b border-outline-variant/10">
+<td class="py-2.5 px-4 text-primary">DOC-2024-8921</td>
+<td class="py-2.5 px-4 text-on-surface">Alpha_Merger_Agreement_vFinal.pdf</td>
+<td class="py-2.5 px-4">
+<div class="flex gap-1 flex-wrap">
+<span class="bg-surface-variant text-on-surface px-1.5 py-0.5 rounded text-[10px]">OmniCorp</span>
+<span class="bg-surface-variant text-on-surface px-1.5 py-0.5 rounded text-[10px]">BetaTech</span>
+</div>
+</td>
+<td class="py-2.5 px-4 text-on-surface-variant">Delaware, US</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant">2024-05-12 14:30</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors border-b border-outline-variant/10">
+<td class="py-2.5 px-4 text-primary">DOC-2024-8920</td>
+<td class="py-2.5 px-4 text-on-surface">Employment_Contract_Standard.docx</td>
+<td class="py-2.5 px-4">
+<div class="flex gap-1 flex-wrap">
+<span class="bg-surface-variant text-on-surface px-1.5 py-0.5 rounded text-[10px]">Internal</span>
+</div>
+</td>
+<td class="py-2.5 px-4 text-on-surface-variant">California, US</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant">2024-05-12 11:15</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors border-b border-outline-variant/10">
+<td class="py-2.5 px-4 text-primary">DOC-2024-8919</td>
+<td class="py-2.5 px-4 text-on-surface">Vendor_SLA_Nexus_IT.pdf</td>
+<td class="py-2.5 px-4">
+<div class="flex gap-1 flex-wrap">
+<span class="bg-surface-variant text-on-surface px-1.5 py-0.5 rounded text-[10px]">Nexus IT</span>
+</div>
+</td>
+<td class="py-2.5 px-4 text-on-surface-variant">London, UK</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant">2024-05-11 09:45</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors border-b border-outline-variant/10">
+<td class="py-2.5 px-4 text-primary">DOC-2024-8918</td>
+<td class="py-2.5 px-4 text-on-surface">IP_Assignment_Form_Signed.pdf</td>
+<td class="py-2.5 px-4">
+<div class="flex gap-1 flex-wrap">
+<span class="bg-surface-variant text-on-surface px-1.5 py-0.5 rounded text-[10px]">J. Smith</span>
+</div>
+</td>
+<td class="py-2.5 px-4 text-on-surface-variant">New York, US</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant">2024-05-10 16:20</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</main>
+</body></html>

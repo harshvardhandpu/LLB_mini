@@ -86,10 +86,15 @@ def save_analysis():
     if not data:
         return jsonify({"error": "No analysis data provided"}), 400
         
+    overview = data.get("analysis_overview", {})
+    
     analysis_record = {
         "user_id": ObjectId(current_user_id),
         "file_name": data.get("fileName", "Unknown"),
-        "document_size": data.get("document_length", 0),
+        "document_size": data.get("documentLength", data.get("document_length", 0)),
+        "risk_level": overview.get("overall_risk_level", "low"),
+        "risk_score": overview.get("risk_score", 0),
+        "document_type": overview.get("document_type", "General Legal Agreement"),
         "analysis_data": data,
         "created_at": datetime.utcnow()
     }
@@ -109,10 +114,64 @@ def get_analyses():
             "id": str(a['_id']),
             "file_name": a.get("file_name"),
             "document_size": a.get("document_size"),
+            "risk_level": a.get("risk_level", "low"),
+            "risk_score": a.get("risk_score", 0),
+            "document_type": a.get("document_type", "General Legal Agreement"),
             "created_at": a.get("created_at")
         })
         
     return jsonify({"analyses": result}), 200
+
+@app.route('/api/dashboard/stats', methods=['GET'])
+@jwt_required()
+def get_dashboard_stats():
+    current_user_id = get_jwt_identity()
+    user_id_obj = ObjectId(current_user_id)
+    
+    high_risk_count = mongo.db.analyses.count_documents({"user_id": user_id_obj, "risk_level": "high"})
+    med_risk_count = mongo.db.analyses.count_documents({"user_id": user_id_obj, "risk_level": "medium"})
+    low_risk_count = mongo.db.analyses.count_documents({"user_id": user_id_obj, "risk_level": "low"})
+    
+    # Generate intelligence feed from recent documents
+    recent_docs = mongo.db.analyses.find({"user_id": user_id_obj}).sort("created_at", -1).limit(5)
+    intelligence_feed = []
+    
+    for doc in recent_docs:
+        if doc.get("risk_level") == "high":
+            intelligence_feed.append({
+                "type": "Critical Insight",
+                "message": f"Critical risk detected in {doc.get('file_name', 'document')}.",
+                "tags": ["Compliance", "Action Required"],
+                "time": doc.get("created_at").strftime("%Y-%m-%d %H:%M") if doc.get("created_at") else "Recently",
+                "color": "error"
+            })
+        elif doc.get("risk_level") == "medium":
+            intelligence_feed.append({
+                "type": "Warning",
+                "message": f"Medium risk clauses found in {doc.get('file_name', 'document')}.",
+                "tags": ["Review Suggested"],
+                "time": doc.get("created_at").strftime("%Y-%m-%d %H:%M") if doc.get("created_at") else "Recently",
+                "color": "tertiary"
+            })
+        else:
+            intelligence_feed.append({
+                "type": "Summary Generated",
+                "message": f"Executive summary ready for {doc.get('file_name', 'document')}.",
+                "tags": ["Auto-Generated"],
+                "time": doc.get("created_at").strftime("%Y-%m-%d %H:%M") if doc.get("created_at") else "Recently",
+                "color": "primary"
+            })
+            
+    return jsonify({
+        "risk_atlas": {
+            "high": high_risk_count,
+            "medium": med_risk_count,
+            "low": low_risk_count
+        },
+        "active_tasks": [],
+        "active_ingestions": 0,
+        "intelligence_feed": intelligence_feed[:3]
+    }), 200
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001, debug=True)

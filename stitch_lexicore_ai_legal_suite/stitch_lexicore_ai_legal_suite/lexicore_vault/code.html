@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LexiCore AI - Vault</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-background": "#e4e2e4",
+                      "on-secondary": "#263143",
+                      "on-surface-variant": "#c6c6cd",
+                      "secondary-fixed-dim": "#bcc7de",
+                      "surface-container": "#1f1f21",
+                      "primary-container": "#0f172a",
+                      "surface-container-high": "#2a2a2b",
+                      "on-tertiary-container": "#957d5a",
+                      "secondary-container": "#3e495d",
+                      "surface": "#131315",
+                      "surface-container-low": "#1b1b1d",
+                      "inverse-on-surface": "#303032",
+                      "surface-variant": "#353436",
+                      "on-primary-container": "#798098",
+                      "tertiary-fixed": "#fcdeb5",
+                      "surface-bright": "#39393b",
+                      "on-tertiary-fixed-variant": "#574425",
+                      "outline-variant": "#45464d",
+                      "inverse-surface": "#e4e2e4",
+                      "surface-tint": "#bec6e0",
+                      "on-primary-fixed": "#131b2e",
+                      "background": "#131315",
+                      "tertiary-container": "#231500",
+                      "on-secondary-container": "#aeb9d0",
+                      "secondary-fixed": "#d8e3fb",
+                      "on-tertiary": "#3e2d11",
+                      "on-secondary-fixed-variant": "#3c475a",
+                      "on-error-container": "#ffdad6",
+                      "secondary": "#bcc7de",
+                      "inverse-primary": "#565e74",
+                      "primary-fixed": "#dae2fd",
+                      "on-secondary-fixed": "#111c2d",
+                      "on-primary-fixed-variant": "#3f465c",
+                      "primary": "#bec6e0",
+                      "surface-dim": "#131315",
+                      "outline": "#909097",
+                      "on-primary": "#283044",
+                      "error": "#ffb4ab",
+                      "error-container": "#93000a",
+                      "primary-fixed-dim": "#bec6e0",
+                      "tertiary-fixed-dim": "#dec29a",
+                      "surface-container-highest": "#353436",
+                      "surface-container-lowest": "#0e0e10",
+                      "on-surface": "#e4e2e4",
+                      "tertiary": "#dec29a",
+                      "on-tertiary-fixed": "#271901",
+                      "on-error": "#690005"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "12px",
+                      "density-scale": "compact",
+                      "container-padding": "16px",
+                      "component-gap": "8px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "data-tabular": [
+                              "JetBrains Mono"
+                      ],
+                      "body-fixed": [
+                              "JetBrains Mono"
+                      ],
+                      "display-md": [
+                              "Inter"
+                      ],
+                      "body-ui": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "data-tabular": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-fixed": [
+                              "13px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-ui": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(31, 31, 33, 0.6);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .ai-pulse {
+            width: 8px;
+            height: 8px;
+            background-color: theme('colors.primary');
+            border-radius: 50%;
+            box-shadow: 0 0 8px theme('colors.primary');
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex overflow-hidden font-body-ui text-body-ui">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-screen w-64 border-r border-outline-variant/20 bg-surface-container/60 backdrop-blur-xl flex flex-col py-gutter px-4 z-50">
+<div class="mb-8 flex flex-col gap-2">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">gavel</span>
+</div>
+<div>
+<h1 class="font-display-md text-display-md font-bold tracking-tight text-primary">LexiCore AI</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase">Legal Intelligence</p>
+</div>
+</div>
+<button class="mt-4 w-full bg-primary hover:bg-primary/90 text-on-primary font-body-ui text-body-ui font-medium py-2 px-4 rounded transition-colors duration-200 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add</span> New Analysis
+            </button>
+</div>
+<ul class="flex-1 flex flex-col gap-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant font-medium hover:bg-white/5 hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                    Command Center
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant font-medium hover:bg-white/5 hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">analytics</span>
+                    Analysis Studio
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-primary font-bold border-r-2 border-primary bg-primary/5 hover:bg-white/5 hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+                    Vault
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant font-medium hover:bg-white/5 hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">psychology</span>
+                    Intelligence Hub
+                </a>
+</li>
+</ul>
+<ul class="mt-auto flex flex-col gap-1 pt-4 border-t border-outline-variant/20">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant font-medium hover:bg-white/5 hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+                    Settings
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant font-medium hover:bg-white/5 hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">help</span>
+                    Support
+                </a>
+</li>
+</ul>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 flex flex-col h-screen relative">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 border-b border-outline-variant/20 bg-surface/40 backdrop-blur-md shadow-sm z-40 flex items-center justify-between px-gutter">
+<div class="flex items-center gap-6">
+<!-- Search on Left (from JSON) -->
+<div class="relative w-64 hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="w-full bg-surface-container border border-outline-variant/30 rounded pl-9 pr-3 py-1.5 font-body-ui text-body-ui text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-all" placeholder="Search Vault..." type="text"/>
+</div>
+<nav class="hidden md:flex gap-4">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary hover:bg-white/5 px-2 py-1 rounded transition-colors uppercase" href="#">Repository</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary hover:bg-white/5 px-2 py-1 rounded transition-colors uppercase" href="#">Precedents</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary hover:bg-white/5 px-2 py-1 rounded transition-colors uppercase" href="#">Risk Atlas</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">history_edu</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant/30 overflow-hidden ml-2 cursor-pointer">
+<img alt="Senior Counsel Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKqNtm8E-8Ml-iaY3fJtLft1tkTiQavdgBWSowfDanUBI98_QTVcOxW7KXvWtyYBt8DqOBFWD1NoWjBpFPpPVsC6bCIYP2HCUAkCBMZxYns4o08VUPg6nuCNVSAvioIvTrw2bb-MGQLOSnnAEnZ9V_sgeABXAB4Pg0J4RrZ4JfM3PjCm0Xq6NiVcj7nLtjz6tyrBUgS9cR4gSQA7_th1sBNVZ-_Mex6HBenP6A8Oohjbwcbtmo1Za89L98zy66RRA_RaSq5-cWk84"/>
+</div>
+</div>
+</header>
+<!-- Vault Content -->
+<div class="mt-16 p-container-padding flex-1 overflow-y-auto flex gap-6">
+<!-- Main Grid/List Area -->
+<div class="flex-1 flex flex-col gap-4">
+<!-- Toolbar -->
+<div class="flex flex-wrap items-center justify-between gap-4 glass-panel p-3 rounded-lg">
+<div class="flex flex-wrap items-center gap-3">
+<div class="relative">
+<select class="appearance-none bg-surface-container border border-outline-variant/30 rounded pl-3 pr-8 py-1.5 font-body-ui text-body-ui text-on-surface focus:outline-none focus:border-primary/50">
+<option>All Jurisdictions</option>
+<option>Delaware (DE)</option>
+<option>New York (NY)</option>
+<option>California (CA)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-sm">expand_more</span>
+</div>
+<div class="relative">
+<select class="appearance-none bg-surface-container border border-outline-variant/30 rounded pl-3 pr-8 py-1.5 font-body-ui text-body-ui text-on-surface focus:outline-none focus:border-primary/50">
+<option>Any Risk Level</option>
+<option>High Risk</option>
+<option>Medium Risk</option>
+<option>Low Risk</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-sm">expand_more</span>
+</div>
+<button class="bg-surface-container border border-outline-variant/30 hover:border-outline-variant rounded px-3 py-1.5 font-body-ui text-body-ui text-on-surface-variant flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-sm">filter_list</span> More Filters
+                        </button>
+</div>
+<div class="flex items-center gap-3">
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 font-body-ui text-body-ui">
+<span class="material-symbols-outlined text-sm">checklist</span> Bulk Actions
+                        </button>
+<div class="w-px h-5 bg-outline-variant/30 mx-1"></div>
+<button class="text-primary bg-primary/10 p-1 rounded">
+<span class="material-symbols-outlined text-sm">grid_view</span>
+</button>
+<button class="text-on-surface-variant hover:text-on-surface p-1 rounded transition-colors">
+<span class="material-symbols-outlined text-sm">view_list</span>
+</button>
+</div>
+</div>
+<!-- Document Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-component-gap">
+<!-- Card 1 -->
+<div class="glass-panel rounded-lg p-4 flex flex-col gap-3 group hover:border-primary/50 transition-colors cursor-pointer relative overflow-hidden border-primary/30">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-xl">picture_as_pdf</span>
+<h3 class="font-body-ui text-body-ui font-semibold text-on-surface truncate pr-2" title="Project_Titan_Merger_Agreement_v4.pdf">Project_Titan_Merger_Agreement_v4.pdf</h3>
+<div class="ai-pulse" title="New AI Insights Available"></div>
+</div>
+<div class="flex flex-col items-center justify-center w-10 h-10 rounded-full border-2 border-error text-error font-data-tabular text-data-tabular bg-error/5 shrink-0">
+                                89
+                            </div>
+</div>
+<div class="flex flex-wrap gap-2 mt-1">
+<span class="px-2 py-0.5 rounded text-[10px] font-data-tabular bg-secondary-container/50 text-secondary border border-secondary/20">M&amp;A</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-data-tabular bg-primary-container text-primary border border-primary/20">Active</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-data-tabular bg-surface-container-high text-on-surface-variant border border-outline-variant/30">DE</span>
+</div>
+<div class="mt-auto pt-3 border-t border-outline-variant/20 flex justify-between items-center text-on-surface-variant font-data-tabular text-data-tabular text-[10px]">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">schedule</span> Analyzed: 10m ago</span>
+<span>4.2 MB</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="glass-panel rounded-lg p-4 flex flex-col gap-3 group hover:border-primary/50 transition-colors cursor-pointer relative overflow-hidden">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">description</span>
+<h3 class="font-body-ui text-body-ui font-semibold text-on-surface truncate pr-2" title="Global_NDA_Standard_Template_2024.docx">Global_NDA_Standard_Template_2024.docx</h3>
+</div>
+<div class="flex flex-col items-center justify-center w-10 h-10 rounded-full border-2 border-tertiary text-tertiary font-data-tabular text-data-tabular bg-tertiary/5 shrink-0">
+                                42
+                            </div>
+</div>
+<div class="flex flex-wrap gap-2 mt-1">
+<span class="px-2 py-0.5 rounded text-[10px] font-data-tabular bg-surface-container-high text-on-surface-variant border border-outline-variant/30">Template</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-data-tabular bg-surface-container-high text-on-surface-variant border border-outline-variant/30">NDA</span>
+</div>
+<div class="mt-auto pt-3 border-t border-outline-variant/20 flex justify-between items-center text-on-surface-variant font-data-tabular text-data-tabular text-[10px]">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">schedule</span> Analyzed: 2d ago</span>
+<span>1.1 MB</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="glass-panel rounded-lg p-4 flex flex-col gap-3 group hover:border-primary/50 transition-colors cursor-pointer relative overflow-hidden">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-xl">picture_as_pdf</span>
+<h3 class="font-body-ui text-body-ui font-semibold text-on-surface truncate pr-2" title="AcmeCorp_Q3_Litigation_Summary.pdf">AcmeCorp_Q3_Litigation_Summary.pdf</h3>
+</div>
+<div class="flex flex-col items-center justify-center w-10 h-10 rounded-full border-2 border-error text-error font-data-tabular text-data-tabular bg-error/5 shrink-0">
+                                75
+                            </div>
+</div>
+<div class="flex flex-wrap gap-2 mt-1">
+<span class="px-2 py-0.5 rounded text-[10px] font-data-tabular bg-error-container/30 text-error border border-error/20">Litigation</span>
+<span class="px-2 py-0.5 rounded text-[10px] font-data-tabular bg-surface-container-high text-on-surface-variant border border-outline-variant/30">NY</span>
+</div>
+<div class="mt-auto pt-3 border-t border-outline-variant/20 flex justify-between items-center text-on-surface-variant font-data-tabular text-data-tabular text-[10px]">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">schedule</span> Analyzed: 5h ago</span>
+<span>12.8 MB</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Optional Right Sidebar: Vault Insights -->
+<div class="hidden xl:flex w-72 flex-col gap-4">
+<div class="glass-panel rounded-lg p-4 sticky top-4">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-4 border-b border-outline-variant/20 pb-2">Vault Insights</h2>
+<div class="flex flex-col gap-4">
+<div class="bg-surface-container/50 p-3 rounded">
+<p class="font-data-tabular text-data-tabular text-on-surface-variant mb-1">Total Documents</p>
+<p class="font-display-md text-display-md text-primary font-bold">14,208</p>
+</div>
+<div class="bg-surface-container/50 p-3 rounded">
+<p class="font-data-tabular text-data-tabular text-on-surface-variant mb-1">Avg. Risk Score</p>
+<div class="flex items-end gap-2">
+<p class="font-display-md text-display-md text-tertiary font-bold">48</p>
+<span class="font-data-tabular text-data-tabular text-on-surface-variant pb-1">/ 100</span>
+</div>
+</div>
+<div class="bg-surface-container/50 p-3 rounded">
+<div class="flex justify-between items-center mb-2">
+<p class="font-data-tabular text-data-tabular text-on-surface-variant">Storage Usage</p>
+<p class="font-data-tabular text-[10px] text-on-surface">68%</p>
+</div>
+<div class="w-full h-1.5 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[68%]"></div>
+</div>
+<p class="font-data-tabular text-[10px] text-on-surface-variant mt-2 text-right">340 GB / 500 GB</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LexiCore AI - Authorization Suite</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#e4e2e4",
+                        "on-secondary": "#263143",
+                        "on-surface-variant": "#c6c6cd",
+                        "secondary-fixed-dim": "#bcc7de",
+                        "surface-container": "#1f1f21",
+                        "primary-container": "#0f172a",
+                        "surface-container-high": "#2a2a2b",
+                        "on-tertiary-container": "#957d5a",
+                        "secondary-container": "#3e495d",
+                        "surface": "#131315",
+                        "surface-container-low": "#1b1b1d",
+                        "inverse-on-surface": "#303032",
+                        "surface-variant": "#353436",
+                        "on-primary-container": "#798098",
+                        "tertiary-fixed": "#fcdeb5",
+                        "surface-bright": "#39393b",
+                        "on-tertiary-fixed-variant": "#574425",
+                        "outline-variant": "#45464d",
+                        "inverse-surface": "#e4e2e4",
+                        "surface-tint": "#bec6e0",
+                        "on-primary-fixed": "#131b2e",
+                        "background": "#131315",
+                        "tertiary-container": "#231500",
+                        "on-secondary-container": "#aeb9d0",
+                        "secondary-fixed": "#d8e3fb",
+                        "on-tertiary": "#3e2d11",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "on-error-container": "#ffdad6",
+                        "secondary": "#bcc7de",
+                        "inverse-primary": "#565e74",
+                        "primary-fixed": "#dae2fd",
+                        "on-secondary-fixed": "#111c2d",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "primary": "#bec6e0",
+                        "surface-dim": "#131315",
+                        "outline": "#909097",
+                        "on-primary": "#283044",
+                        "error": "#ffb4ab",
+                        "error-container": "#93000a",
+                        "primary-fixed-dim": "#bec6e0",
+                        "tertiary-fixed-dim": "#dec29a",
+                        "surface-container-highest": "#353436",
+                        "surface-container-lowest": "#0e0e10",
+                        "on-surface": "#e4e2e4",
+                        "tertiary": "#dec29a",
+                        "on-tertiary-fixed": "#271901",
+                        "on-error": "#690005"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "12px",
+                        "density-scale": "compact",
+                        "container-padding": "16px",
+                        "component-gap": "8px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "data-tabular": ["JetBrains Mono"],
+                        "body-fixed": ["JetBrains Mono"],
+                        "display-md": ["Inter"],
+                        "body-ui": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "data-tabular": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-fixed": ["13px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "display-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-ui": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .bg-mesh {
+            background: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 100%);
+        }
+        .ai-pulse {
+            box-shadow: 0 0 10px rgba(190, 198, 224, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex items-center justify-center bg-mesh">
+<div class="glass-panel rounded-xl w-full max-w-md p-8 shadow-2xl relative overflow-hidden">
+<!-- Decorative Glow -->
+<div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-primary/50 blur-md"></div>
+<!-- Header -->
+<div class="text-center mb-8">
+<h1 class="font-display-lg text-display-lg text-primary mb-2 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[32px]">gavel</span>
+                LexiCore AI
+            </h1>
+<p class="font-body-fixed text-body-fixed text-on-surface-variant uppercase tracking-widest">Authorization Suite</p>
+</div>
+<!-- Form -->
+<form class="space-y-6">
+<div class="space-y-2">
+<label class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-2" for="counsel_id">
+<span class="w-1.5 h-1.5 rounded-full bg-primary ai-pulse inline-block"></span>
+                    Counsel ID
+                </label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">badge</span>
+<input class="w-full bg-surface-container border border-outline-variant rounded bg-opacity-50 px-10 py-3 font-data-tabular text-data-tabular text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all placeholder-on-surface-variant/50" id="counsel_id" placeholder="Enter credentials..." type="text"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-2" for="password">
+<span class="w-1.5 h-1.5 rounded-full bg-surface-variant inline-block"></span>
+                    Security Key
+                </label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">key</span>
+<input class="w-full bg-surface-container border border-outline-variant rounded bg-opacity-50 px-10 py-3 font-data-tabular text-data-tabular text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/50 transition-all placeholder-on-surface-variant/50" id="password" placeholder="••••••••••••" type="password"/>
+</div>
+</div>
+<!-- Actions -->
+<div class="pt-4">
+<button class="w-full bg-primary/10 border border-primary/30 hover:bg-primary/20 text-primary font-label-caps text-label-caps py-4 rounded transition-all duration-200 flex items-center justify-center gap-2 ai-pulse" type="button">
+                    Access Intelligence
+                    <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<div class="text-center mt-4">
+<a class="font-body-fixed text-body-fixed text-secondary hover:text-primary transition-colors underline decoration-secondary/30 underline-offset-4" href="#">Request Credentials</a>
+</div>
+</form>
+<!-- Footer -->
+<div class="mt-8 pt-6 border-t border-outline-variant/30 text-center">
+<p class="font-data-tabular text-data-tabular text-on-surface-variant/70 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[14px]">shield</span>
+                Encrypted &amp; Secure | RBAC Level 4
+            </p>
+</div>
+</div>
+</body></html>
